@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>practice-distribution</artifactId>
+    <version>6.20.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>dev.nandi0813</groupId>
+        <artifactId>practice-parent</artifactId>
+        <version>6.20.1-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <build.path.version>1.21.4</build.path.version>
+    </properties>
+
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+        <finalName>ZonePractice Pro v6.20.1-SNAPSHOT</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <outputFile>/Users/dukatnandor/Dokumentumok/Munka/MC/Plugins/ZonePractice/Pro/Test Servers/Main/Server_${build.path.version}/plugins/${project.build.finalName}.jar</outputFile>
+
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.intellij</exclude>
+                                    <exclude>org.jetbrains</exclude>
+                                </excludes>
+                            </artifactSet>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>net.megavex.scoreboardlibrary</pattern>
+                                    <shadedPattern>dev.nandi0813.practice.dependencies.sidebar</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>dev.dejvokep.boostedyaml</pattern>
+                                    <shadedPattern>dev.nandi0813.practice.dependencies.boostedyaml</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>net.wesjd.anvilgui</pattern>
+                                    <shadedPattern>dev.nandi0813.practice.dependencies.anvilgui</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>dev.nandi0813.license</pattern>
+                                    <shadedPattern>dev.nandi0813.practice.dependencies.license</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>dev.nandi0813</groupId>
+            <artifactId>practice-core</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.nandi0813</groupId>
+            <artifactId>practice-spigot_modern</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.nandi0813</groupId>
+            <artifactId>practice-spigot_1_8_8</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    
+</project>

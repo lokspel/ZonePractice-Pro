@@ -1,0 +1,30 @@
+name: Sumo
+enabled: true
+type: SUMO
+settings:
+  regen: false
+  hunger: false
+  ranked: true
+  editable: false
+  hitdelay: 20
+  rounds: 3
+  epcooldown: 13
+  startcountdown: 3
+  knockback: DEFAULT
+  gacooldown: 0
+  drop-inventory: false
+  matchtypes:
+    - DUEL
+effects: []
+icon:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3337
+  type: STICK
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: '{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gold","text":"Sumo"}],"text":""}'
+armor: |
+  rO0ABXcEAAAABHBwcHA=
+inventory: |
+  rO0ABXcEAAAAJHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcA==

@@ -1,0 +1,318 @@
+name: ZonePracticePro
+version: '${project.version}'
+main: dev.nandi0813.practice.ZonePractice
+authors: [ Nandi0813 ]
+softdepend: [ PlaceholderAPI, Multiverse-Core, FastAsyncWorldEdit, LiteBans ]
+loadbefore: [ CMI, CMILib ]
+api-version: 1.13
+commands:
+  arena:
+    description: Arena command
+  ladder:
+    description: Ladder command
+  setup:
+    description: Setup command
+  duel:
+    description: Duel command
+  accept:
+    description: Duel accept command
+  settings:
+    description: Settings command
+  practice:
+    aliases: [prac, zonepractice, zoneprac, zonep]
+  staff:
+    aliases: staffmode
+  spectate:
+    aliases: spec
+  party:
+    aliases: p
+  hologram:
+    aliases: holo
+  matchinv:
+    description: Match inventory command.
+  event:
+    aliases: e
+  statistics:
+    aliases: [stat, stats]
+  preview:
+    description: Preview the kit for the ladders.
+  divisions:
+    description: View all the divisions.
+  unranked:
+    description: Opens the unranked queue GUI.
+  ranked:
+    description: Opens the ranked queue GUI.
+  editor:
+    description: Opens the ladder editor selector GUI.
+  ffa:
+    description: FFA command.
+  copykit:
+    description: Copy a custom kit from another player.
+  ignorequeue:
+    description: Ignore a player in unranked queue.
+
+permissions:
+  zpp.admin:
+    default: op
+    children:
+      zpp.setup: true
+      zpp.staff: true
+      zpp.event.*: true
+      zpp.settings.*: true
+      zpp.admin.scoreboard: true
+  zpp.setup:
+    description: Setup everything.
+    children:
+      zpp.ladder.freeze: true
+      zpp.arena.freeze: true
+  zpp.staff:
+    description: Staff permission.
+    children:
+      zpp.staffmode: true
+      zpp.staffmode.fly: true
+      zpp.staffmode.stop: true
+      zpp.staffmode.see: true
+      zpp.staffmode.chat: true
+      zpp.bypass.privatemessage: true
+      zpp.bypass.spectate: true
+  zpp.autosave.alert:
+    description: Alerts when the auto save ends and starts.
+
+  # Practice command permissions
+  zpp.practice.*:
+    children:
+      zpp.practice.lobby: true
+      zpp.practice.arenas: true
+      zpp.practice.info: true
+      zpp.practice.info.teleport: true
+      zpp.practice.info.cancel: true
+      zpp.practice.info.resetstats: true
+      zpp.practice.elo.default: true
+      zpp.practice.elo.specific: true
+      zpp.practice.ranked: true
+      zpp.practice.unranked: true
+      zpp.practice.exp: true
+      zpp.practice.rename: true
+      zpp.practice.stop: true
+  zpp.practice.lobby:
+    description: Teleport to and set the lobby.
+  zpp.practice.arenas:
+    description: Teleport to the arenas world.
+  zpp.practice.info:
+    description: Usage for the /prac info <player> command.
+  zpp.practice.info.teleport:
+    description: Teleport to the player's activities.
+  zpp.practice.info.cancel:
+    description: Cancel the player's activities.
+  zpp.practice.info.resetstats:
+    description: Reset the player's statistics.
+
+  zpp.practice.elo.default:
+    description: Reset the player's elos to default.
+  zpp.practice.elo.specific:
+    description: Set the player's elos to a specific number.
+
+  zpp.practice.rename:
+    description: Usage for the /prac rename command.
+  zpp.practice.reset:
+    description: Reset a player fully.
+
+  zpp.practice.nametag.set:
+    description: Set player's nametag.
+  zpp.practice.nametag.reset:
+    description: Reset player's nametag.
+
+  zpp.practice.unranked.default:
+    description: Reset the player's daily unranked limit to default.
+  zpp.practice.unranked.add:
+    description: Add extra unranked to a player.
+
+  zpp.practice.ranked.default:
+    description: Reset the player's daily ranked limit to default.
+  zpp.practice.ranked.add:
+    description: Add extra rankeds to a player.
+  zpp.practice.ranked.ban:
+    description: Ban a player from playing ranked matches.
+  zpp.practice.ranked.unban:
+    description: Unban a player from playing ranked matches.
+
+  zpp.practice.exp.reset:
+    description: Reset the player's experience.
+  zpp.practice.exp.add:
+    description: Add experience to a player.
+  zpp.practice.exp.set:
+    description: Set experience to a player.
+
+
+
+  # Player settings
+  zpp.settings.*:
+    children:
+      zpp.settings.open: true
+      zpp.bypass.cooldown: false
+      zpp.settings.duelrequest: true
+      zpp.settings.scoreboard: true
+      zpp.settings.privatemessage: true
+      zpp.settings.partyinvite: true
+      zpp.settings.playerhide: true
+      zpp.settings.allowspectate: true
+      zpp.settings.worldtime: true
+  zpp.settings.open:
+    description: Open the settings gui.
+    default: true
+  zpp.settings.duelrequest:
+    description: Toggle duel requests.
+  zpp.settings.scoreboard:
+    description: Toggle the scoreboard.
+  zpp.settings.privatemessage:
+    description: Toggle private messages.
+  zpp.settings.partyinvite:
+    description: Toggle party invites.
+  zpp.settings.playerhide:
+    description: Toggle player hider in lobby.
+  zpp.settings.allowspectate:
+    description: Toggle spectators in their matches.
+  zpp.settings.worldtime:
+    description: Change world time.
+  zpp.settings.fly:
+    description: Toggle fly in the lobby.
+
+  # Staff mode
+  zpp.staffmode:
+    description: Turn on staff mode.
+    children:
+      zpp.bypass.spectate: true
+  zpp.staffmode.fly:
+    description: Fly in the lobby.
+  zpp.staffmode.forceend:
+    description: Able to force end matches (if possible party matches can continue) and freezes the player in the lobby.
+  zpp.staffmode.chat:
+    description: Use staff chat.
+  zpp.staffmode.see:
+    description: See the hiding staffs.
+
+  zpp.ladder.freeze:
+    description: Freeze ladders so player can't start a new game with it.
+  zpp.ladder.stop:
+    description: Stop all the matches with a ladder.
+  zpp.arena.freeze:
+    description: Freeze arenas so player can't start a new game with it.
+  zpp.arena.stop:
+    description: Stop all the matches in a arena.
+
+  # Basic permission
+  zpp.spectate:
+    default: true
+  zpp.spectate.vanish:
+    description: Toogle vanish when spectating.
+  zpp.spectate.menu:
+    description: Spectate menu use.
+  zpp.spectate.random:
+    description: Spectate random match.
+  zpp.statistics:
+    default: true
+  zpp.statistics.other:
+    description: View other players statistics.
+  zpp.divisions.view:
+    default: true
+    description: Open the divisions GUI.
+
+  zpp.ignorequeue:
+    default: true
+    description: Ignore a player in unranked queue.
+
+  zpp.duel:
+    description: Use the /duel command.
+  zpp.duel.selectarena:
+    description: Player can choose the arena to play in.
+  zpp.duel.selectrounds:
+    description: Player can choose how many rounds they want to play.
+
+  zpp.duel.infiniteinvite:
+    description: Player can invite player to duel any number of times.
+  zpp.party.selectarena:
+    description: Choose arena to play in with party.
+  zpp.party.selectrounds:
+    description: Player can choose how many rounds they want to play.
+  zpp.party.infiniteinvite:
+    description: Party leader can invite other parties any number of times. (Before the previous invite expire)
+
+  # Party permissions
+  zpp.party.create:
+    description: Create party.
+  zpp.party.info.others:
+    description: View other player's party information.
+  zpp.party.changelimit:
+    description: Change party player limit.
+  zpp.party.public:
+    description: Change party status to public.
+  zpp.party.broadcast:
+    description: Broadcast the party, if it public.
+  zpp.party.allinvite:
+    description: Invite all the players in the server to the party.
+  zpp.party.partychat:
+    description: Change party chat use status.
+  zpp.party.duelrequest:
+    description: Toggle duel requests in party.
+
+  # Event permissions
+  zpp.event.*:
+    children:
+      zpp.event.host.all: true
+      zpp.event.join: true
+      zpp.event.stop.collecting: true
+      zpp.event.stop.live: true
+  zpp.event.host:
+    description: Open the event host gui.
+  zpp.event.host.all:
+    description: Host all the events.
+    children:
+      zpp.event.host: true
+  zpp.event.join:
+    default: true
+
+  zpp.event.stop.collecting:
+    description: Stop events while its collecting.
+  zpp.event.stop.live:
+    description: Stop ongoing events.
+
+  # Bypasses
+  zpp.bypass.privatemessage:
+    description: Players with this permission can send private messages to players who don't accept them.
+  zpp.bypass.ranked.requirements:
+    description: Bypass ranked requirements.
+  zpp.bypass.cooldown:
+    description: Cooldown bypass for spectate vanish, lobby vanish etc..
+  zpp.bypass.unranked.limit:
+    description: Bypass unranked limit per day.
+  zpp.bypass.ranked.limit:
+    description: Bypass ranked limit per day.
+  zpp.bypass.elo.change:
+    description: Players elo cannot be changed with commands.
+  zpp.bypass.forceend:
+    description: Bypass staff forceend. (Can't end their match or event)
+  zpp.bypass.stop:
+    description: Bypass staff stop. (Can't be removed from match or event)
+  zpp.bypass.nametag:
+    description: Bypass nametag change.
+  zpp.bypass.spectate:
+    description: Bypass if a match is not viewable.
+
+  # Custom Kits
+  zpp.customkit.1:
+    description: Create 1 custom kit.
+  zpp.customkit.2:
+    children:
+      zpp.customkit.1: true
+  zpp.customkit.3:
+    children:
+      zpp.customkit.2: true
+  zpp.customkit.4:
+    children:
+      zpp.customkit.3: true
+
+  # Custom player kit
+  zpp.playerkit.share:
+    description: Share custom kit with others.
+  zpp.playerkit.copy:
+    description: Copy custom kit from others.

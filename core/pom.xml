@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>dev.nandi0813</groupId>
+        <artifactId>practice-parent</artifactId>
+        <version>6.20.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>practice-core</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencies>
+        <!-- JSON -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+
+        <!-- Paper Spigot -->
+        <dependency>
+            <groupId>org.github.paperspigot</groupId>
+            <artifactId>paperspigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../libs/PaperSpigot-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
+
+        <!-- Carbon Spigot -->
+        <dependency>
+            <groupId>xyz.refinedev.spigot</groupId>
+            <artifactId>CarbonSpigotAPI</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>pt.foxspigot.jar</groupId>
+            <artifactId>FoxSpigot</artifactId>
+            <version>1.4</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../libs/FoxSpigot.jar</systemPath>
+        </dependency>
+
+        <!-- Adventure -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.18.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>4.3.4</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.18.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Scoreboard API -->
+        <dependency>
+            <groupId>net.megavex</groupId>
+            <artifactId>scoreboard-library-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.megavex</groupId>
+            <artifactId>scoreboard-library-implementation</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.megavex</groupId>
+            <artifactId>scoreboard-library-modern</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+            <!-- <classifier>mojmap</classifier> -->
+        </dependency>
+        <dependency>
+            <groupId>net.megavex</groupId>
+            <artifactId>scoreboard-library-v1_8_R3</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Placeholder API -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.6</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Litebans -->
+        <dependency>
+            <groupId>com.gitlab.ruany</groupId>
+            <artifactId>LiteBansAPI</artifactId>
+            <version>0.5.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- API -->
+        <dependency>
+            <groupId>com.github.ZoneDevelopement</groupId>
+            <artifactId>ZonePracticePro-Api</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+    </dependencies>
+
+</project>
