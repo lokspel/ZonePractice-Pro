@@ -7,12 +7,20 @@ import xyz.refinedev.spigot.api.knockback.KnockbackAPI;
 public enum ForkUtil {
     ;
 
-    public static boolean isCarbon() throws ClassNotFoundException, NoClassDefFoundError {
-        return Bukkit.getServer().getVersion().contains("Carbon") && KnockbackAPI.getInstance() != null;
+    public static boolean isCarbon() throws NoClassDefFoundError {
+        try {
+            return Bukkit.getServer().getVersion().contains("Carbon") && KnockbackAPI.getInstance() != null;
+        } catch (Exception e) {
+            throw new NoClassDefFoundError();
+        }
     }
 
-    public static boolean isFoxSpigot() throws ClassNotFoundException, NoClassDefFoundError {
-        return KnockbackModule.INSTANCE != null;
+    public static boolean isFoxSpigot() throws NoClassDefFoundError {
+        try {
+            return KnockbackModule.INSTANCE != null;
+        } catch (Exception e) {
+            throw new NoClassDefFoundError();
+        }
     }
 
 }
