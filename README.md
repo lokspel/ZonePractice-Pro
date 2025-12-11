@@ -1,144 +1,118 @@
 # ZonePractice
 
-ZonePractice is a modular Minecraft PvP/practice plugin written in Java and built with Maven. It's organized as multiple
-modules (core, platform-specific builds, and distribution) and supports several server forks and versions used by PvP
-servers.
+ZonePractice is a modular, production-ready Minecraft PvP/practice plugin written in Java and built with Maven. It is
+organized into multiple modules (core logic, platform-specific builds, and distribution packaging) and supports all
+major server forks commonly used by competitive PvP networks.
 
-Features
+## Features
 
-- Ladder, Arena, FFA and Event managers
-- Profile, Leaderboard (holograms), Sidebar and Tablist management
-- Match handling, Kit management and inventory utilities
-- Soft-dependencies: PlaceholderAPI (PAPI) integration when available
-- Supports forks such as Paper/Spigot, FoxSpigot and Carbon where applicable
+- Ladder, Arena, FFA and Event systems
+- Profile management, leaderboards (holograms), sidebars and tablists
+- Match engine, kit handling, inventories and utility helpers
+- Optional PlaceholderAPI support
+- Compatible with Paper/Spigot, FoxSpigot, Carbon and similar forks
 
-Supported versions
+## Supported Versions
 
-- Primary supported versions: 1.8.8, 1.8.9 (legacy) and modern targets (1.20.6, 1.21.4) as indicated by runtime checks
-  from the codebase. See `VersionChecker` in `core` for exact supported values.
+- Primary targets: **1.8.8**, **1.8.9** (legacy), and **modern 1.20.6 / 1.21.4**
+- Actual supported versions are detected at runtime via the `VersionChecker`
+- The plugin automatically disables itself on unsupported versions
 
-Dependencies
+## Dependencies
 
-- PlaceholderAPI (optional): adds extra placeholder support when present. Install PlaceholderAPI by dropping its jar
-  into the server's `plugins/` folder if you want the extra placeholders to be available.
-- PacketEvents (runtime dependency, required for packet-level features): https://github.com/retrooper/packetevents
-    - ZonePractice integrates with PacketEvents for low-level packet handling and certain features that rely on packet
-      interception.
-    - PacketEvents must be installed on the server as a separate plugin (i.e., place the PacketEvents jar in the
-      server's `plugins/` directory alongside the ZonePractice jar). Do not attempt to only add PacketEvents as a
-      build-time dependency; it must be present at runtime for those features to work.
-    - Download PacketEvents from its GitHub Releases or build it from source. Use a PacketEvents build compatible with
-      your server software (Paper/Spigot/Fork) and Minecraft version.
-    - Installation steps (example):
-        1. Download the PacketEvents jar from https://github.com/retrooper/packetevents/releases
-        2. Stop your server.
-        3. Copy both `PacketEvents-<version>.jar` and your chosen `ZonePractice` jar into the server `plugins/` folder.
-        4. Start the server and check the console; PacketEvents should report that it enabled successfully before
-           ZonePractice initializes.
-    - Notes: Loading order can matter — if you see missing provider errors on startup, ensure PacketEvents is present
-      and enabled, then restart the server. Do not shade or bundle PacketEvents into ZonePractice; keep it external to
-      avoid compatibility and loading-order issues.
+### Optional – PlaceholderAPI
 
-Repository layout
+Provides additional placeholders when installed. Add the PlaceholderAPI jar to your server’s *plugins/* folder to enable
+integration.
 
-- `core/` — main plugin code and most logic; produces `practice-core-*.jar` under `core/target/`
-- `spigot_1_8_8/` — legacy Spigot 1.8.8 build module
-- `spigot_modern/` — modern platform builds (1.20.x / 1.21.x targets)
-- `distribution/` — builds the runnable distribution JARs (`ZonePractice Pro v*.jar`) that bundle modules for release
-- `libs/` — helper jars and server forks used during development
+### Required (runtime) – PacketEvents
 
-Getting started (build)
+ZonePractice uses PacketEvents for packet-level features. PacketEvents must be installed as an external plugin, not
+shaded into ZonePractice.  
+**How to install PacketEvents:**
 
-1. Make sure you have a JDK (Java 17+ recommended for modern targets) and Maven installed.
-2. From the repository root, build with Maven:
+1. Download a compatible build from: https://github.com/retrooper/packetevents/releases
+2. Stop your server
+3. Place **PacketEvents** and **ZonePractice** into the *plugins/* directory
+4. Start the server and ensure PacketEvents loads before ZonePractice  
+   Do **not** bundle PacketEvents inside the ZonePractice jar. Keeping it external ensures correct load order and
+   compatibility.
 
-   mvn clean package
+## Repository Structure
 
-   Optional parallel build (useful on multi-core machines):
+- **core/** – main logic and shared systems (`practice-core-*.jar`)
+- **spigot_1_8_8/** – legacy 1.8.8 platform build
+- **spigot_modern/** – modern 1.20.x / 1.21.x builds
+- **distribution/** – release packaging (`ZonePractice Pro v*.jar`)
+- **libs/** – helper jars and forked server builds for development
 
-   mvn -T 1C clean package
+## Building
 
-3. Built artifacts appear in each module's `target/` directory. Examples:
-    - `core/target/practice-core-<version>.jar`
-    - `spigot_1_8_8/target/practice-spigot_1_8_8-<version>.jar`
-    - `distribution/target/ZonePractice Pro v<version>.jar`
+1. Install JDK (Java 17+ recommended for modern builds) and Maven
+2. Run: `mvn clean package`
 
-Install (server)
+## Installation (Server)
 
-1. Copy the appropriate JAR for your server to the server's `plugins/` directory.
-    - For a single-server install you usually only need the distribution jar (if provided) or the `spigot_modern` /
-      `spigot_1_8_8` module jar that matches your server.
-2. Start the server and watch the console for plugin initialization messages (or check `logs/latest.log` inside the
-   server directory).
-3. On first run the plugin will create default configuration files; consult `core/src/main/resources` for default
-   templates.
+1. Place the appropriate build (distribution jar or a specific platform module) into *plugins/*.
+2. Start the server and watch the console or `logs/latest.log`.
+3. On first startup, the plugin will generate configuration files under `plugins/ZonePracticePro/`.
 
-Note: the plugin's `name` in `plugin.yml` is `ZonePracticePro` — default data/config folder will be
-`plugins/ZonePracticePro` (not `plugins/ZonePractice`).
+## Configuration
 
-Configuration & first run
+- Default configuration files are generated automatically. Templates live under `core/src/main/resources/<version>/` (
+  e.g., `config.yml`, `divisions.yml`, `guis.yml`, `inventories.yml`).
+- `config.yml` includes a `VERSION` field (e.g., 13 for the legacy 1.8.8 template). Review updated templates when
+  upgrading.
+- Optional MySQL storage is available via the `MYSQL-DATABASE` section; back up configs before enabling.
+- Read console output for version validation, warnings and load messages.
+- PlaceholderAPI functionality is automatically enabled when detected.
 
-- Default configuration files are created by the plugin on first run. Look for a `config.yml` or similarly named files
-  in the server `plugins/ZonePracticePro` (or plugin-named) folder. Example template files live under
-  `core/src/main/resources/1.8.8/` and `core/src/main/resources/modern/` in the repo (e.g. `config.yml`,
-  `divisions.yml`, `guis.yml`, `inventories.yml`).
-- `config.yml` contains a `VERSION` field (currently 13 in the 1.8.8 template). When upgrading across major plugin
-  versions, review the template in the repo and migrate custom changes as necessary.
-- The plugin contains optional MySQL support (see `core/src/main/resources/1.8.8/config.yml`:
-  `MYSQL-DATABASE.ENABLED: false`). Enable and configure that if you want remote storage; backup configs before
-  enabling.
-- Check `logs/latest.log` or the running server console for messages such as Unsupported version warnings. If the server
-  version is unsupported, the plugin will disable itself.
-- If you use PlaceholderAPI, ensure it is installed to enable additional placeholders.
+## Commands & Permissions
 
-Commands & Permissions (summary)
+All commands and permission nodes are defined in `core/src/main/resources/plugin.yml`.  
+Common commands include `/practice` (aliases: `/prac`, `/zonepractice`, `/zoneprac`, `/zonep`), `/arena`, `/ladder`,
+`/duel`, `/party`, `/spectate`, and many more.  
+Permissions follow the `zpp.*` namespace, such as `zpp.admin` (default: op), `zpp.practice.*`, `zpp.staffmode`, and many
+granular nodes.
 
-- The plugin registers many commands (see `core/src/main/resources/plugin.yml`). Common commands include `/practice` (
-  aliases: `/prac`, `/zonepractice`, `/zoneprac`, `/zonep`), `/arena`, `/ladder`, `/duel`, `/party`, `/spectate` and
-  more.
-- Permissions are under the `zpp.*` namespace (see `plugin.yml`); for example `zpp.admin` (default: op),
-  `zpp.practice.*`, `zpp.staffmode`, and many granular permissions.
+## Soft Dependencies & Load Order
 
-Soft-dependencies and load order
+Defined in `plugin.yml`:
 
-- `plugin.yml` declares `softdepend: [ PlaceholderAPI, Multiverse-Core, FastAsyncWorldEdit, LiteBans ]` and
-  `loadbefore: [ CMI, CMILib ]`.
-- These plugins are optional integrations that provide extra features or compatibility; the plugin functions without
-  them but will enable additional functionality when present.
+- `softdepend: [PlaceholderAPI, Multiverse-Core, FastAsyncWorldEdit, LiteBans]`
+- `loadbefore: [CMI, CMILib]`  
+  These integrations enhance features but are optional.
 
-Troubleshooting
+## Troubleshooting
 
-- PacketEvents not found / missing provider errors:
-    - Ensure the PacketEvents jar is present in `plugins/` and enabled before ZonePractice.
-    - If you still see errors, restart the server after placing PacketEvents in `plugins/` instead of relying on
-      hot-loading.
-- MySQL connection failures:
-    - Verify `core/src/main/resources/1.8.8/config.yml` (or `modern/config.yml`) has the correct `MYSQL-DATABASE`
-      settings and that your database accepts connections from the server host.
-    - The plugin uses standard JDBC (`DriverManager`); if your server JRE/JDK lacks a suitable driver for your DB,
-      ensure a compatible JDBC driver is available on the server classpath (for most MySQL setups the bundled connector
-      works via DriverManager). Check the server console for detailed SQL exceptions.
+### PacketEvents Not Found
 
-plugin.yml and api-version
+- Ensure PacketEvents is in *plugins/* and loads **before** ZonePractice
+- Restart the server instead of hot-loading plugins
 
-- The main `plugin.yml` (contains `name: ZonePracticePro`, `api-version: 1.13`, commands and permissions) is under
-  `core/src/main/resources/plugin.yml`. Use it as the authoritative source for commands, permissions and
-  soft-dependencies.
+### MySQL Errors
 
-Contributing
+- Verify MySQL settings in `1.8.8/config.yml` or `modern/config.yml`
+- Ensure the database accepts external connections
+- JDBC is handled via `DriverManager`; ensure a suitable MySQL driver is available
 
-- Contributions are welcome via pull requests. Keep changes focused and include tests where feasible.
-- Follow the existing code style and naming conventions found in the `core` module.
-- Open an issue if you find a bug or want to propose a feature.
+## Plugin Metadata
 
-License
-This project is licensed under the MIT License — see the `LICENSE` file for details.
+The canonical `plugin.yml` is located at `core/src/main/resources/plugin.yml` and defines:  
+`name: ZonePracticePro`, `api-version: 1.13`, commands, permissions, soft dependencies, and load rules.
 
-Maintainers / Contact
+## Contributing
 
-- For public issues, open an issue on the repository.
-- Maintainership is credited to "ZonePractice contributors" in the LICENSE.
+- Pull requests are welcome
+- Keep changes focused and include tests when possible
+- Follow the coding style in the `core` module
+- Open an issue for bugs or feature requests
 
-Assumptions
+## License
 
-- I added the MIT license (year 2025) and used the generic owner string "ZonePractice contributors" as requested.
+Licensed under the **MIT License (2025)**.  
+Copyright © **ZonePractice contributors**
+
+## Contact
+
+For issues, feature requests or contributions, use the project’s GitHub issue tracker.

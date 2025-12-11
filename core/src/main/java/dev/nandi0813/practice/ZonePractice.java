@@ -50,6 +50,7 @@ import dev.nandi0813.practice.Util.PlaceholderAPI.PlayerExpansion;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
@@ -71,6 +72,8 @@ public final class ZonePractice extends JavaPlugin {
 
     @Getter
     private static KnockbackController knockbackController;
+
+    private Metrics metrics;
 
     static {
         try {
@@ -96,6 +99,7 @@ public final class ZonePractice extends JavaPlugin {
         instance = this;
         adventure = BukkitAudiences.create(this);
         PacketEvents.getAPI().init();
+        metrics = new Metrics(this, 16055);
 
         if (VersionChecker.getBukkitVersion() == null) {
             Common.sendConsoleMMMessage("<red>Unsupported server version! Please use 1.8.8 or 1.8.9 or 1.20.6 or 1.21.4");
@@ -180,6 +184,7 @@ public final class ZonePractice extends JavaPlugin {
         SidebarManager.getInstance().close();
         InventoryManager.getInstance().setData();
         if (adventure != null) adventure.close();
+        if (metrics != null) metrics.shutdown();
         MysqlManager.closeConnection();
         BackendManager.save();
     }
