@@ -3,7 +3,6 @@ package dev.nandi0813.practice.Util;
 import dev.nandi0813.practice.ZonePractice;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 
@@ -20,16 +19,16 @@ public enum Common {
             line = PlaceholderAPI.setPlaceholders(player, line);
         }
 
-        ZonePractice.getAdventure().player(player).sendMessage(MiniMessage.miniMessage().deserialize(line));
+        ZonePractice.getAdventure().player(player).sendMessage(ZonePractice.getMiniMessage().deserialize(line));
     }
 
     public static void sendConsoleMMMessage(String string) {
-        ZonePractice.getAdventure().console().sendMessage(MiniMessage.miniMessage().deserialize(string));
+        ZonePractice.getAdventure().console().sendMessage(ZonePractice.getMiniMessage().deserialize(string));
     }
 
 
     public static Component deserializeMiniMessage(String line) {
-        return MiniMessage.miniMessage().deserialize(line);
+        return ZonePractice.getMiniMessage().deserialize(line);
     }
 
     public static String serializeComponentToLegacyString(Component component) {
@@ -45,7 +44,7 @@ public enum Common {
     public static String serializeNormalToMMString(String normalString) {
         String normalized = normalString.replace('&', LegacyComponentSerializer.SECTION_CHAR);
         Component component = LegacyComponentSerializer.legacySection().deserialize(normalized);
-        return MiniMessage.miniMessage().serialize(component);
+        return ZonePractice.getMiniMessage().serialize(component);
     }
 
     public static List<String> mmToNormal(List<String> list) {
