@@ -4,6 +4,11 @@ ZonePractice is a modular, production-ready Minecraft PvP/practice plugin writte
 organized into multiple modules (core logic, platform-specific builds, and distribution packaging) and supports all
 major server forks commonly used by competitive PvP networks.
 
+## Documentation
+
+For detailed guides on setup, configuration, and feature usage, please visit our official GitBook:
+👉 **[ZonePractice Pro Documentation](https://zone-developement.gitbook.io/zonepractice-pro/)**
+
 ## Features
 
 - Ladder, Arena, FFA and Event systems
