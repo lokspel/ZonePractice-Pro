@@ -12,11 +12,32 @@
 
     <artifactId>practice-spigot_modern</artifactId>
 
+    <repositories>
+        <!-- FAWE -->
+        <repository>
+            <id>enginehub</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+    </repositories>
+
+    <!-- FAWE -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.intellectualsites.bom</groupId>
+                <artifactId>bom-newest</artifactId> <!--  Ref: https://github.com/IntellectualSites/bom -->
+                <version>1.55</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.4-R0.1-SNAPSHOT</version>
+            <version>1.21.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -27,12 +48,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- FAWE -->
         <dependency>
-            <groupId>com.fastasyncworldedit</groupId>
-            <artifactId>FastAsyncWorldEdit-Core</artifactId>
-            <scope>provided</scope>
+          <groupId>com.fastasyncworldedit</groupId>
+          <artifactId>FastAsyncWorldEdit-Core</artifactId>
+          <scope>provided</scope>
         </dependency>
-
+        <!-- FAWE -->
         <dependency>
             <groupId>com.fastasyncworldedit</groupId>
             <artifactId>FastAsyncWorldEdit-Bukkit</artifactId>
